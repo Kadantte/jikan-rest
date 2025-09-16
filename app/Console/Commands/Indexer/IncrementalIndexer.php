@@ -177,14 +177,27 @@ class IncrementalIndexer extends Command implements PromptsForMissingInput
 
     public function handle(): int
     {
+        $inputs = [
+            'mediaType' => $this->argument('mediaType'),
+        ];
+
+        if ($this->option('failed'))
+        {
+            $inputs['failed'] = $this->option('failed');
+        }
+
+        if ($this->option('resume'))
+        {
+            $inputs['resume'] = $this->option('resume');
+        }
+
+        if ($this->option('delay'))
+        {
+            $inputs['delay'] = $this->option('delay');
+        }
         // validate inputs
         $validator = Validator::make(
-            [
-                'mediaType' => $this->argument('mediaType'),
-                'delay' => $this->option('delay'),
-                'resume' => $this->option('resume'),
-                'failed' => $this->option('failed')
-            ],
+            $inputs,
             [
                 'mediaType' => 'required|array',
                 'mediaType.*' => 'in:anime,manga',

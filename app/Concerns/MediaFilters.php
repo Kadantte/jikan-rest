@@ -14,7 +14,7 @@ trait MediaFilters
             return $query;
         }
 
-        if ($query instanceof \Laravel\Scout\Builder) {
+        if (is_scout_query_builder($query)) {
             if (array_key_exists("score", $query->wheres)) {
                 $minScoreValue = $query->wheres["score"][1];
                 $maxScoreValue = floatval($value);
@@ -33,7 +33,7 @@ trait MediaFilters
             return $query;
         }
 
-        if ($query instanceof \Laravel\Scout\Builder) {
+        if (is_scout_query_builder($query)) {
             if (array_key_exists("score", $query->wheres)) {
                 $maxScoreValue = $query->wheres["score"][1];
                 $minScoreValue = floatval($value);
@@ -64,7 +64,7 @@ trait MediaFilters
         }
         $genres = explode(',', $value);
 
-        if ($query instanceof \Laravel\Scout\Builder) {
+        if (is_scout_query_builder($query)) {
             // https://typesense.org/docs/0.24.1/api/search.html#filter-parameters
             $genreFilterList = '[' . implode(', ', $genres) . ']';
             $query = $query->where('(genres', [
@@ -99,7 +99,7 @@ trait MediaFilters
         }
         $genres = explode(',', $value);
 
-        if ($query instanceof \Laravel\Scout\Builder) {
+        if (is_scout_query_builder($query)) {
             // https://typesense.org/docs/0.24.1/api/search.html#filter-parameters
             $genreFilterList = '[' . implode(', ', $genres) . ']';
             $query = $query->where('(genres', [

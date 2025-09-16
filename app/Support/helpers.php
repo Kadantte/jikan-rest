@@ -141,3 +141,9 @@ if (!function_exists("cancellable_sleep")) {
         }
     }
 }
+
+if (!function_exists("is_scout_query_builder")) {
+    function is_scout_query_builder(\Laravel\Scout\Builder|\Illuminate\Database\Eloquent\Builder $builder): bool {
+        return $builder instanceof \Laravel\Scout\Builder;
+    }
+}
